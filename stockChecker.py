@@ -23,7 +23,7 @@ def connect(name, ticker, tickerprice, value):
         
 	# execute a statement
         print('PostgreSQL database version:')
-        cur.execute('SELECT version()')
+        cur.execute('insert into public.indicators ')
 
         # display the PostgreSQL database server version
         db_version = cur.fetchone()
@@ -40,13 +40,16 @@ def connect(name, ticker, tickerprice, value):
 
 class TechnicalIndicators:
     def __init__(self):
-        self.api_key= 'TCVGV5C9L0I7OMG0'
+        self.api_key1= 'TCVGV5C9L0I7OMG0'
+        self.api_key2= 'GOUDK5Y427GJU3B9'
+        self.api_key3= 'KMOA5YH5JT2Z2A1B'
         self.stock_name='SPY'
-        self.macd_data=self.macd()
-        self.rsi_data=self.rsi()
-        self.bbands_data=self.bbands()
-        self.current_data=self.current()
-        self.sma_data=self.sma()
+        # self.macd_data=self.macd()
+        # self.rsi_data=self.rsi()
+        # self.bbands_data=self.bbands()
+        # self.current_data=self.current()
+        # self.sma_data=self.sma()
+        self.ema_data=self.ema()
     def question(self):
         stock_name=raw_input("Enter stock name:")
         return stock_name
@@ -66,21 +69,26 @@ class TechnicalIndicators:
         d= TechIndicators(key=self.api_key, output_format='json')
         data, meta_data = d.get_sma(symbol=self.stock_name,time_period=30)
         return data
+    def ema(self):
+        e=TechIndicators(key=self.api_key)
+        data, meta_data = e.get_ema(symbol=self.stock_name,interval='15min')
     def current(self):
-        d=TimeSeries(key=self.api_key,output_format='json')
-        data,meta_data=d.get_quote_endpoint(symbol=self.stock_name)
+        z=TimeSeries(key=self.api_key,output_format='json')
+        data,meta_data=z.get_quote_endpoint(symbol=self.stock_name)
         return data
 if __name__ == "__main__":
     TI=TechnicalIndicators()
-    current_data = TI.current_data
-    macd_data = TI.macd_data
-    rsi_data=TI.rsi_data
-    bbands_data=TI.bbands_data
-    sma_data = TI.sma_data
+    # current_data = TI.current_data
+    # macd_data = TI.macd_data
+    # rsi_data=TI.rsi_data
+    # bbands_data=TI.bbands_data
+    # sma_data = TI.sma_data
+    ema_data = TI.ema_data
     # print(macd_data)
     # print(rsi_data)
     # print(bbands_data)
     # print(sma_data)
-    print(current_data['01. symbol'])
-    print(current_data['05. price'])
+    print(ema_data)
+    # print(current_data['01. symbol'])
+    # print(current_data['05. price'])
     
