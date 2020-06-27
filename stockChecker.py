@@ -49,46 +49,44 @@ class TechnicalIndicators:
         # self.bbands_data=self.bbands()
         # self.current_data=self.current()
         # self.sma_data=self.sma()
-        self.ema_data=self.ema()
+        # self.ema_data=self.ema()
     def question(self):
         stock_name=raw_input("Enter stock name:")
         return stock_name
     def macd(self):
-        a = TechIndicators(key=self.api_key, output_format='json')
+        a = TechIndicators(key=self.api_key2, output_format='json')
         data, meta_data = a.get_macd(symbol=self.stock_name,interval='daily')
         return data
     def rsi(self):
-        b=TechIndicators(key=self.api_key,output_format='json')
+        b=TechIndicators(key=self.api_key2,output_format='json')
         data,meta_data = b.get_rsi(symbol=self.stock_name,interval='daily',time_period=14)
         return data
     def bbands (self):
-        c=TechIndicators(key=self.api_key,output_format='json')
+        c=TechIndicators(key=self.api_key2,output_format='json')
         data,meta_data=c.get_bbands(symbol=self.stock_name)
         return data
     def sma(self):
-        d= TechIndicators(key=self.api_key, output_format='json')
+        d= TechIndicators(key=self.api_key2, output_format='json')
         data, meta_data = d.get_sma(symbol=self.stock_name,time_period=30)
         return data
-    def ema(self):
-        e=TechIndicators(key=self.api_key)
-        data, meta_data = e.get_ema(symbol=self.stock_name,interval='15min')
+    def ema(self, tp):
+        e=TechIndicators(key=self.api_key2,output_format='json')
+        data, meta_data = e.get_ema(symbol=self.stock_name,interval='1min',time_period=tp,series_type='close')
+        return data
     def current(self):
-        z=TimeSeries(key=self.api_key,output_format='json')
+        z=TimeSeries(key=self.api_key1,output_format='json')
         data,meta_data=z.get_quote_endpoint(symbol=self.stock_name)
         return data
 if __name__ == "__main__":
     TI=TechnicalIndicators()
     # current_data = TI.current_data
-    # macd_data = TI.macd_data
-    # rsi_data=TI.rsi_data
-    # bbands_data=TI.bbands_data
-    # sma_data = TI.sma_data
-    ema_data = TI.ema_data
-    # print(macd_data)
-    # print(rsi_data)
-    # print(bbands_data)
-    # print(sma_data)
-    print(ema_data)
     # print(current_data['01. symbol'])
     # print(current_data['05. price'])
-    
+    ema50 = TI.ema(50)
+    ema20 = TI.ema(20)
+    ema20value = ema20[next(iter(ema20))]['EMA']
+    ema50value = ema50[next(iter(ema50))]['EMA']
+
+    # print the most recent value in a time series
+    print(ema50value)
+    # print(ema_data)
