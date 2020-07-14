@@ -79,11 +79,11 @@ if __name__ == "__main__":
         symbol = current_data['01. symbol']
         currentPrice = float(current_data['05. price'])
 
-        ema50 = TI.ema(50)
-        ema20 = TI.ema(20)
-        ema20value = float(ema20[next(iter(ema20))]['EMA'])
-        ema50value = float(ema50[next(iter(ema50))]['EMA'])
-        emaPrediction = round((ema20value-ema50value)*10000/currentPrice,2)
+        emaSlow = TI.ema(20)
+        emaFast = TI.ema(10)
+        emaFastValue = float(emaFast[next(iter(emaFast))]['EMA'])
+        emaSlowValue = float(emaSlow[next(iter(emaSlow))]['EMA'])
+        emaPrediction = round((emaFastValue-emaSlowValue)*10000/currentPrice,2)
 
         writeToDB(cur, "EMA", symbol, currentPrice, emaPrediction)
 

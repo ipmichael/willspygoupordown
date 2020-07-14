@@ -1,0 +1,8 @@
+Connecting to the PostgreSQL database...
+insert into public.indicators(name,ticker,tickerprice,value) VALUES('EMA','SPY',302.39,7.13);
+insert into public.indicators(name,ticker,tickerprice,value) VALUES('RSI','SPY',302.39,-2.53);
+insert into public.indicators(name,ticker,tickerprice,value) VALUES('EMA-RSI','SPY',302.39,4.6);
+Database connection closed.
+Connecting to the PostgreSQL database...
+Expecting value: line 1 column 1 (char 0)
+Database connection closed.
